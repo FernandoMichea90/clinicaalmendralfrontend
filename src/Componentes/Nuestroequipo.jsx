@@ -8,7 +8,8 @@ const useStyle=makeStyles((theme)=>({
 
     root: {
         flexGrow: 1,
-        margin:"200px 10vw 100px 10vw",
+        margin:"100px 10vw 100px 10vw",
+        paddingTop:"100px"
       },
 
 
@@ -71,7 +72,7 @@ const Nuestroequipo = () => {
 
    const   clases =useStyle()
     return (
-        <div className={clases.root}>
+        <div name="equipo" className={clases.root}>
             
             <Box m={10}>
             <Typography variant="h4" align="center" className={clases.textoTitulo}>

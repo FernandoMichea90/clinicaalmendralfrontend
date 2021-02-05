@@ -1,8 +1,7 @@
-import React from 'react'
-import { makeStyles ,Typography,TextField, Button   } from '@material-ui/core'
+import React,{useState} from 'react'
+import { makeStyles ,Typography,TextField, Button,TextareaAutosize   } from '@material-ui/core'
 import Clinica from '../Imagenes/clinica.jpg'
-
-
+import Swal from "sweetalert2"
 
 
 
@@ -14,7 +13,7 @@ const useStyle=makeStyles((theme)=>({
         position:"relative",
       
         height:"100vh",
-       
+        minHeight:"800px",
         overflow:"hidden",
         margin:"200px 0px 0px 0px",
         
@@ -24,7 +23,15 @@ const useStyle=makeStyles((theme)=>({
                 borderRadius:"25px",
                 display:"block",
                 width:"400px",
-                margin:"80px auto 68px auto",
+                margin:"50px auto 50px auto",
+                [theme.breakpoints.only("sm")]:{
+                    margin:"36px auto 36px auto",
+                    
+                },
+                [theme.breakpoints.only("xs")]:{
+                    width:"auto",
+                    
+                }
 
              
         },
@@ -43,14 +50,21 @@ const useStyle=makeStyles((theme)=>({
     
             },"& .MuiButton-root:hover": {
                 textDecoration: "none",
-                backgroundColor: "#00000000",
-                border: "1px solid #ED95D5"
+                backgroundColor: "#ED95D5",
+                border: "1px solid #ED95D5",
+                color:"#ffffff"
+                
             }
           
        
        
 
 
+    },
+
+    textoAreados:{
+
+        margin:"0px auto 50px auto !important",
     },
     boton:{
     
@@ -91,9 +105,16 @@ const useStyle=makeStyles((theme)=>({
     textoTitulo:{
         fontWeight:"900",
         fontFamily:"Poppins",
-        padding:"150px 0px 0px 0px",
-        color:"#ffffff"
-    }
+        padding:"135px 0px 0px 0px",
+        color:"#ffffff",
+        [theme.breakpoints.only("sm")]:{
+            padding:"250px 0px 0px 0px",
+            
+        },
+
+    },
+
+  
 }))
 
 
@@ -103,11 +124,87 @@ const useStyle=makeStyles((theme)=>({
 const Consultas = () => {
 
 
+
+
+
+
+
+
+
+
+
         const clases=useStyle();
+        const [state, setstate] = useState({
+            nombre:"",
+            correo:"",
+            asunto:""
+        })
+
+
+        const [error, seterror] = useState({
+            nombre:"",
+            correo:"",
+            asunto:""
+        })
+
+
+        const [validado, setvalidado] = useState(false)
+
+
+
+        const actualizarState=(e)=>{
+            e.preventDefault()
+            setstate({...state,[e.target.name]:e.target.value})
+
+
+        }
+
+
+
+        const mandarCorreo=()=>{
+            
+                setvalidado(false)    
+                seterror({nombre:"",
+                email:"",
+                asunto:""})
+
+
+             let errorUno={nombre:"",correo:"",asunto:""}
+            if(state.nombre==""){
+
+            errorUno.nombre="debe ingresar su nombre"
+                setvalidado(true)
+                
+            }
+            if(state.correo==""){
+                errorUno.correo="debe ingresar su correo"
+                setvalidado(true)
+            }if(state.asunto==""){
+                errorUno.asunto="debe ingresar su asunto"
+                setvalidado(true)
+            }
+
+
+            console.log(errorUno)
+            seterror(errorUno)
+            Swal.fire({
+                title:'Ups!',
+                icon:'warning',
+                html:`<p> ${errorUno.nombre} </p> <p>  ${errorUno.correo} </p><p> ${errorUno.asunto} </p>`
+
+                
+                
+            })
+
+        }
+
+
+
+
 
 
     return (
-        <div className={clases.root}>
+        <div name="consultas" className={clases.root}>
             <div>
             <img className={clases.img} src={Clinica} />       
             <Typography  className={clases.textoTitulo} variant="h4" align="center" >
@@ -115,19 +212,18 @@ const Consultas = () => {
            </Typography>
 
            <div>
-           <TextField id="filled-basic" label="Nombre" variant="filled" />
+           <TextField  id="filled-basic" label="Nombre" variant="filled" name="nombre" onChange={actualizarState} />
            </div> 
            <div>
-           <TextField id="filled-basic" label="Correo" variant="filled" />
-           </div>
+           <TextField id="filled-basic" label="Correo" variant="filled" name="correo" onChange={actualizarState} />
+           </div>´
            <div>
-           <TextField id="filled-basic" label="Asunto" variant="filled" 
-            multiline
-            
-           />
+           <TextField id="filled-basic" label="Asunto"   rowsMax={6} name="asunto" className={clases.textoAreados}  onChange={actualizarState} variant="filled" multiline />
            </div>
+           
+
            <div>
-               <Button className={clases.boton} >
+               <Button className={clases.boton} onClick={()=>mandarCorreo()} >
                    Enviar
                </Button>
            </div>

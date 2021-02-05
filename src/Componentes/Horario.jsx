@@ -1,20 +1,29 @@
 import React from 'react'
 import { Grid, makeStyles, Typography } from '@material-ui/core'
-
+var Scroll   = require('react-scroll');
+var Element  = Scroll.Element;
 
 const useStyle=makeStyles((theme)=>({
 
 
     divPrincipal:{
-    backgroundImage: "radial-gradient(circle at 120.71% 50%, #ff94fc 0, #ff8dfc 12.5%, #ff86f9 25%, #ff7ef1 37.5%, #e475e4 50%, #c16bd5 62.5%, #a163c7 75%, #845cbb 87.5%, #6a56af 100%)"
-    ,margin:"200px 10vw 0px 10vw",
-    color:"#FFFFFF",
-    borderRadius:"25px"
+    margin:"100px 10vw 0px 10vw",
+    color:"rgba(0, 0, 0, 0.87)",
+    borderRadius:"25px",
+    border:"solid 1px",
+    borderColor:"#e753c2",
+    "& .MuiTypography-subtitle1":{
+
+        color: "rgba(0, 0, 0, 0.54)"
+    }
 
 
 
 
 
+    },
+    root:{
+        paddingTop:"100px",   
     }
     , textoTitulo:{
         fontFamily:"Lato",
@@ -53,7 +62,9 @@ const Horario = () => {
     //        backgroundImage: "radial-gradient(circle at 120.71% 50%, #ff94fc 0, #ff8dfc 12.5%, #ff86f9 25%, #ff7ef1 37.5%, #e475e4 50%, #c16bd5 62.5%, #a163c7 75%, #845cbb 87.5%, #6a56af 100%)"
 
     return (
-        <div>
+
+        
+        <div  name="servicios" className={clases.root}>
             <div className={clases.divPrincipal}>
                 <Grid container>
                         <Grid xs={12} md={4}>

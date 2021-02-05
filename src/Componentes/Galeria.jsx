@@ -14,7 +14,7 @@ const Galeria = () => {
 
 
             <Grid container>
-                <Grid xs={6}>
+                <Grid xs={6} md={4} >
 
                     <Typography variant="h5" align="center">
 
@@ -28,13 +28,13 @@ const Galeria = () => {
 
                 </Grid>
 
-                <Grid xs={6}>
+                <Grid xs={6} md={4} >
 
                      <img src={Galeriaimg} />
 
                 </Grid>
 
-                <Grid xs={12}>
+                <Grid xs={12} md={4} >
 
                         <img src={Imagenes}/>
 

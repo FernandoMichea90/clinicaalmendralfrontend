@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Typography, makeStyles } from '@material-ui/core'
 import Dentista from '../Imagenes/dentist.jpg'
+import ScrollAnimation from 'react-animate-on-scroll';
 
 
 
@@ -14,14 +15,19 @@ const useStyle=makeStyles((theme)=>({
          margin:"auto",
          height:"50vh",
          minHeight:"360px",
-         display:"block"             
+         display:"block",
+         [theme.breakpoints.down("sm")]:{
+           
+                minHeight:"unset"
+         }             
 
     },
 
     divPrincipal:{
 
-        margin:"200px 0vw 0px 0vw",
-        minWidth:"446px"
+        margin:"0px 0vw 0px 0vw",
+        paddingTop:"100px"
+       
     },
     texto:{
     
@@ -30,13 +36,20 @@ const useStyle=makeStyles((theme)=>({
          fontFamily:"Lato",
          fontWeight:"400",
          color:"#969595",
-         fontSize:"1.5rem"
+         fontSize:"1.5rem",
+        [theme.breakpoints.down("sm")]:{
+                fontSize:"1rem"
+        }
+
+
 
     },
     textoTitulo:{
         fontFamily:"Poppins",
         fontWeight:"900",
-      
+        [theme.breakpoints.down("sm")]:{
+                fontSize:"2rem"
+        }
 
     }
 
@@ -56,17 +69,22 @@ const Nosotros = () => {
 
 
     return (
-        <div className={clases.divPrincipal} >
+        <div name="nosotros" className={clases.divPrincipal} >
                 
 
                 <Grid container>
                         <Grid xs={12} lg={6}>
-                                <img className={clases.imagen} src={Dentista} ></img>
+
+                                        <ScrollAnimation animateIn='fadeIn'
+                                                animateOut='fadeOut'>
+                                                <img className={clases.imagen} src={Dentista} ></img>
+                                                  </ScrollAnimation>
                         </Grid>
 
                         <Grid xs={12} lg={6}>
 
-                                
+                                <ScrollAnimation animateIn='bounceInRight'
+                                animateOut='bounceInRight'>
                                 <Typography className={clases.textoTitulo} style={{textAlign:"center"}} variant="h4">
                                         ODONTOLOGIA DE ALTA CALIDAD
                                         
@@ -79,6 +97,7 @@ const Nosotros = () => {
                                 que tú experiencia dental resulte agradable y exitosa.
 
                                 </Typography>
+                                </ScrollAnimation>
 
 
                         </Grid>

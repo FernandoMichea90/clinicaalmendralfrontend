@@ -8,7 +8,8 @@ import { Grid, makeStyles } from '@material-ui/core'
 const useStyle=makeStyles((theme)=>({
 
      divPrincipal:{
-        margin:"200px 10vw 0px 10vw",
+        margin:"100px 10vw 0px 10vw",
+        paddingTop:"100px"
      },imagen:{
 
         width:"250px",
@@ -31,7 +32,7 @@ const Convenios = () => {
         const clases=useStyle()
 
     return (
-        <div className={clases.divPrincipal}>
+        <div name="convenios" className={clases.divPrincipal}>
             
             <Grid container>
                     <Grid xs={12} md={4} >

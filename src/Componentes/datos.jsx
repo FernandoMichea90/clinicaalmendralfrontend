@@ -1,5 +1,5 @@
 import React from 'react'
-import {Typography} from '@material-ui/core'
+import {Typography, Link} from '@material-ui/core'
 import RoomIcon from '@material-ui/icons/Room';
 import PhoneIcon from '@material-ui/icons/Phone';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -18,10 +18,13 @@ const estilos=makeStyles((theme)=>({
             ,   color:"#FFFFFF",
         position:"relative",
         height:"100vh",
-       
+        opacity:"0.99",
         minHeight:"700px",
-        minWidth:"446px",
-        overflow:"hidden"
+       
+        "& .MuiTypography-colorPrimary": {
+            color: "#ffffff"
+        }
+       
        
     },
     centro:{
@@ -30,6 +33,7 @@ const estilos=makeStyles((theme)=>({
     },imagen:{
         width:"98vw",
         opacity:"0.2",
+        zIndex:"-1",
         position:"absolute",
         top:"-37px",
         [theme.breakpoints.down('md')]:{
@@ -83,22 +87,28 @@ const datos = () => {
                     <Grid xs={4}>
                             <Typography className={clases.margenDesc}>
                                 <PhoneIcon></PhoneIcon>
-                                + 569 7622 6068
+                                (34) 242 0826
                         </Typography>
                         </Grid>
                         <Grid xs={4}>
                         <Typography className={clases.margenDesc}>
                                 <RoomIcon></RoomIcon>
-                                Dimalow 231 , cerro Alegre ,Valparaiso
+                                Esmeralda 286, Oficina 2-B,Los Andes
                     </Typography>
                     </Grid>
                     <Grid xs={4}>
                     <Typography className={clases.margenDesc}>
-                    
+                            <Link href="https://www.instagram.com/dentistaclinicaalmendral/" target="_blank">    
                             <InstagramIcon></InstagramIcon>
-                            <FacebookIcon className={clases.margenIco}></FacebookIcon>
+                            </Link>
+
+                            <Link href="https://www.facebook.com/clinicaalmendral" target="_blank">
+                            
+                                <FacebookIcon className={clases.margenIco}></FacebookIcon>
+                            </Link>
+                            <Link href="https://api.whatsapp.com/send?phone=56976226068&text=Hola me gustaria hacer una consulta" target="_blank">
                             <WhatsAppIcon></WhatsAppIcon>
-                    
+                            </Link>   
                     </Typography>
                     </Grid>
 
