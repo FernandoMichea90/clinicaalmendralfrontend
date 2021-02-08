@@ -2,9 +2,9 @@ import React,{useState} from 'react'
 import { makeStyles ,Typography,TextField, Button,TextareaAutosize   } from '@material-ui/core'
 import Clinica from '../Imagenes/clinica.jpg'
 import Swal from "sweetalert2"
-
-
-
+import {LinearProgress} from '@material-ui/core'
+import clienteAxios from './../config/axios'
+ 
 
 const useStyle=makeStyles((theme)=>({
 
@@ -113,6 +113,18 @@ const useStyle=makeStyles((theme)=>({
         },
 
     },
+    
+    textoTituloDos:{
+        fontWeight:"900",
+        fontFamily:"Poppins",
+        padding:"0px 0px 0px 0px",
+        color:"#ffffff",
+        [theme.breakpoints.only("sm")]:{
+            padding:"0px 0px 0px 0px",
+            
+        },
+
+    },
 
   
 }))
@@ -150,6 +162,7 @@ const Consultas = () => {
 
         const [validado, setvalidado] = useState(false)
 
+        const [data,loading]=useState(null);
 
 
         const actualizarState=(e)=>{
@@ -163,30 +176,48 @@ const Consultas = () => {
 
         const mandarCorreo=()=>{
             
-                setvalidado(false)    
+                // cambiar el state a true  cuando se envia el Correo 
+
+                loading(true)
+
+                setvalidado(false)
+                var validado=false    
                 seterror({nombre:"",
                 email:"",
                 asunto:""})
+
+
 
 
              let errorUno={nombre:"",correo:"",asunto:""}
             if(state.nombre==""){
 
             errorUno.nombre="debe ingresar su nombre"
-                setvalidado(true)
+                validado=true
                 
             }
             if(state.correo==""){
                 errorUno.correo="debe ingresar su correo"
-                setvalidado(true)
+                validado=true
             }if(state.asunto==""){
                 errorUno.asunto="debe ingresar su asunto"
-                setvalidado(true)
+                validado=true
             }
 
 
-            console.log(errorUno)
+          
+
+            // setea el error en el state 
             seterror(errorUno)
+              
+            
+
+            if(validado){
+
+
+
+
+
             Swal.fire({
                 title:'Ups!',
                 icon:'warning',
@@ -195,6 +226,45 @@ const Consultas = () => {
                 
                 
             })
+        }else{
+
+
+
+
+               clienteAxios.post("/mandarcorreo",state).then(res=>
+                {
+                if(res.status===200){
+                    Swal.fire({
+                        title:'Exito!',
+                        icon:'success',
+                        
+                    })
+
+
+                }else{
+                    Swal.fire({
+                        title:'Error!',
+                        icon:'error',
+                        
+                    })
+                }
+
+                loading(null)
+                } 
+                ) 
+
+
+
+
+
+
+     
+
+
+
+
+
+        }
 
         }
 
@@ -211,12 +281,21 @@ const Consultas = () => {
                         CONSULTAS
            </Typography>
 
+            {data ?
+            <div>
+         <LinearProgress style={{marginTop:"250px"}} color="secondary" />
+          <Typography className={clases.textoTituloDos} variant="h5" align="center">
+            Enviando...
+            </Typography>
+        </div>
+           :
+           <div>
            <div>
            <TextField  id="filled-basic" label="Nombre" variant="filled" name="nombre" onChange={actualizarState} />
            </div> 
            <div>
            <TextField id="filled-basic" label="Correo" variant="filled" name="correo" onChange={actualizarState} />
-           </div>´
+           </div>
            <div>
            <TextField id="filled-basic" label="Asunto"   rowsMax={6} name="asunto" className={clases.textoAreados}  onChange={actualizarState} variant="filled" multiline />
            </div>
@@ -227,6 +306,11 @@ const Consultas = () => {
                    Enviar
                </Button>
            </div>
+       
+           </div>
+           
+           }
+         
            </div>
             
         </div>
